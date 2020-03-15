@@ -1,0 +1,8 @@
+{
+  "general": {
+    "error": "Something went wrong.",
+    "http-errors": {
+      "404": "The requested resource is missing."
+    }
+  }
+}
