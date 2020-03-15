@@ -1,1 +1,13 @@
-// tbd
+@import 'utils/variables';
+
+main {
+  margin-left: 5rem;
+  padding: 1rem;
+}
+
+.navbar {
+  width: 5rem;
+  height: 100vw;
+  position: fixed;
+  background-color: $grey-dark;
+}

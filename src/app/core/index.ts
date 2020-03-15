@@ -2,3 +2,5 @@ export { NotificationService } from './services/notification/notification.servic
 export { LangService } from './services/lang/lang.service';
 
 export * from './utils/httpLoaderFactory';
+
+export * from './models/menu-item';
