@@ -11,10 +11,18 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
+    "paths": {
+      "@amst/testing": ["src/testing/index"],
+      "@amst/*": ["src/app/*"],
+      "@env/*": ["src/environments/*"]
+    },
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
