@@ -6,17 +6,21 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { httpLoaderFactory } from '@amst/core';
 import { RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MenuComponent } from './components/menu/menu.component';
+import { PaginationSlicePipe } from './pipes/pagination-slice/pagination-slice.pipe';
 
 @NgModule({
   declarations: [
     MenuComponent,
+    PaginationSlicePipe,
   ],
   imports: [
     CommonModule,
     FlexLayoutModule,
     FontAwesomeModule,
+    NgbModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
@@ -32,6 +36,8 @@ import { MenuComponent } from './components/menu/menu.component';
     MenuComponent,
     FontAwesomeModule,
     TranslateModule,
+    NgbModule,
+    PaginationSlicePipe,
   ],
 })
 export class SharedModule { }

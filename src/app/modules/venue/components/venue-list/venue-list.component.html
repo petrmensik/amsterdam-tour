@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <ng-container *ngIf="establishments; else loading">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ToDo</th>
+          <th scope="col">...</th>
+          <th scope="col">...</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let venue of establishments | paginationSlice:page-1:VENUES_PER_PAGE">
+          <th scope="row">{{ venue.trcid }}</th>
+          <td>{{ venue.trcid }}</td>
+          <td>{{ venue.trcid }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+      <ngb-pagination
+        [collectionSize]="establishments.length"
+        [(page)]="page"
+        [pageSize]="VENUES_PER_PAGE"
+        maxSize="5"
+        rotate="true">
+      </ngb-pagination>
+
+  </ng-container>
+  <ng-template #loading>
+    <div class="app-loading">
+      <svg class="spinner" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
+      </svg>
+    </div>
+  </ng-template>
+</div>

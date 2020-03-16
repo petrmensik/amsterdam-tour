@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MENU_ITEM_LIST } from '@amst/shared';
+import { MENU_ITEM_LIST } from '../../lists/menu-items';
 
 @Component({
   selector: 'amst-menu',

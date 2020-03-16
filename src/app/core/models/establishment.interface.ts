@@ -1,4 +1,5 @@
 import { ILocation } from './location.interface';
+import * as moment from 'moment';
 
 export interface IEstablishment {
   trcid: string;
@@ -11,6 +12,7 @@ export interface IEstablishment {
   dates?: IDates;
   lastupdated: string;
   eigenschappen?: any;
+  quickSearch?: string;
 }
 
 export interface IDetail {
@@ -30,10 +32,11 @@ export interface IMedium {
   main: string;
 }
 
-
 export interface IDates {
-  startdate: string;
-  enddate: string;
+  startdate?: string;
+  enddate?: string;
+  startMoment?: moment.Moment;
+  endMoment?: moment.Moment;
 }
 
 interface IType {

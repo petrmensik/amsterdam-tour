@@ -2,6 +2,7 @@ export { NotificationService } from './services/notification/notification.servic
 export { LangService } from './services/lang/lang.service';
 export { EstablishmentService } from './services/establishment/establishment.service';
 export { EventService } from './services/event/event.service';
+export { MomentService } from './services/moment/moment.service';
 
 export * from './utils/httpLoaderFactory';
 

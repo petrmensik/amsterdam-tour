@@ -3,7 +3,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { httpLoaderFactory } from '@amst/core';
@@ -38,7 +37,6 @@ import { SharedModule } from './shared/shared.module';
     }),
     CoreModule,
     SharedModule,
-    NgbModule,
     AppRoutingModule,
   ],
   providers: [],

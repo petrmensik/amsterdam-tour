@@ -55,11 +55,11 @@
 
 .sidenav {
   position: fixed;
+  z-index: 10;
   background-color: $grey-dark;
   transition: width 200ms ease;
 
   &__menu {
-    // margin: 1rem 0.5rem;
     display: flex;
     color: $grey-light;
     height: 100%;
