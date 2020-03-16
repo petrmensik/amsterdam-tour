@@ -4,5 +4,12 @@
     "http-errors": {
       "404": "The requested resource is missing."
     }
+  },
+  "menu": {
+    "event": "Events",
+    "git": "amsterdam-tour",
+    "home": "Amsterdam Tour",
+    "map": "Map",
+    "venue": "Venues"
   }
 }
