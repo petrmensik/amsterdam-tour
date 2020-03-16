@@ -1,42 +1,77 @@
 @import 'utils/variables';
 
+@media only screen and (max-width: 600px) {
+  .sidenav {
+    bottom: 0;
+    width: 100vw;
+    height: 5rem;
+
+    &__menu {
+      flex-direction: row;
+      margin: 0.5rem;
+
+      &__item {
+        width: 5rem;
+
+        &:last-child {
+          margin-left: auto;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .sidenav {
+    top: 0;
+    width: 5rem;
+    height: 100vh;
+
+    &:hover {
+      width: 16rem;
+
+      span[class$='__text'] {
+        display: inline;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+
+    &__menu {
+      flex-direction: column;
+      margin: 1rem 0.5rem;
+
+      &__item {
+        height: 5rem;
+        width: 100%;
+
+        &:last-child {
+          margin-top: auto;
+        }
+      }
+    }
+  }
+}
+
 .sidenav {
-  width: 5rem;
-  height: 100vh;
   position: fixed;
   background-color: $grey-dark;
   transition: width 200ms ease;
 
-  &:hover {
-    width: 16rem;
-
-    span[class$='__text'] {
-      display: block;
-      white-space: nowrap;
-    }
-  }
-
   &__menu {
-    margin: 1rem 0.5rem;
+    // margin: 1rem 0.5rem;
     display: flex;
-    flex-direction: column;
     color: $grey-light;
     height: 100%;
 
     &__item {
       display: flex;
       justify-content: center;
-      width: 100%;
-      height: 5rem;
 
       &:first-child {
         font-weight: $weight-semi-bold;
         margin-bottom: 1rem;
         letter-spacing: 0.3ch;
-      }
-
-      &:last-child {
-        margin-top: auto;
       }
       
       &__link {
