@@ -4,7 +4,6 @@ import { VenueComponent } from './pages/venue/venue.component';
 
 const routes: Routes = [
   { path: '', component: VenueComponent },
-  { path: ':venueId', component: VenueComponent },
   { path: '**', redirectTo: '' },
 ];
 

@@ -14,7 +14,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let venue of getEstablishments | paginationSlice:page-1:venuesPerPage">
-          <th scope="row">{{ venue.title }}</th>
+          <th scope="row" (click)="openDetail(venue.trcid)">{{ venue.title }}</th>
           <td>{{ venue.location?.city | titlecase }}</td>
           <td>{{ venue.location?.zipcode }}</td>
           <td>{{ venue.location?.adress }}</td>

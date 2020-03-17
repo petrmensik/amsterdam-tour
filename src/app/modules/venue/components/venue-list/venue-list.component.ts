@@ -1,5 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IEstablishment, IMoment } from '@amst/core';
+import { IEstablishment, IMoment, EstablishmentService } from '@amst/core';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { VenueDetailModalComponent } from '../venue-detail-modal/venue-detail-modal.component';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import { mergeMap, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'amst-venue-list',
@@ -26,11 +30,22 @@ export class VenueListComponent implements OnInit {
     'start-year',
   ];
 
-  constructor() { }
+  constructor(
+    private ngbModal: NgbModal,
+    private router: Router,
+    private activeRouter: ActivatedRoute,
+    private establishmentService: EstablishmentService,
+  ) { }
 
   ngOnInit(): void {
     this.venuesPerPage = this.getPageSizeFromViewport();
-    console.log('can get', this.getPageSizeFromViewport());
+
+    this.activeRouter.queryParams.pipe(
+      filter((params: Params) => !!params.open),
+      mergeMap((param: Params) => this.establishmentService.getEstablishmentById(param.open)),
+    ).subscribe(
+      est => this.openModalWithVenue(est),
+    );
   }
 
   get getEstablishments() {
@@ -51,6 +66,10 @@ export class VenueListComponent implements OnInit {
     this.filteredEstablishments = this.getUpdatedView();
   }
 
+  openDetail(venueId: string) {
+    this.navigateToVenue(venueId);
+  }
+
   private getUpdatedView(): IEstablishment[] {
     this.page = 1;
     return this.establishments.filter(
@@ -68,5 +87,26 @@ export class VenueListComponent implements OnInit {
 
   private getPageSizeFromViewport(): number {
     return Math.floor((window.innerHeight - 300) / 50) || 1;
+  }
+
+  private openModalWithVenue(venue: IEstablishment) {
+    if (venue) {
+      const modRef: NgbModalRef = this.ngbModal.open(VenueDetailModalComponent);
+      modRef.componentInstance.venue = venue;
+      modRef.result.then(
+        () => this.navigateToVenue(),
+        () => this.navigateToVenue(),
+      );
+    }
+  }
+
+  private navigateToVenue(id?: string) {
+    this.router.navigate(
+      ['/', 'venue'],
+      {
+        relativeTo: this.activeRouter,
+        queryParams: id ? { open: id } : null,
+        queryParamsHandling: '',
+      });
   }
 }

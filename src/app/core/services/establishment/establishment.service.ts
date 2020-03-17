@@ -41,6 +41,12 @@ export class EstablishmentService {
     );
   }
 
+  getEstablishmentById(id: string): Observable<IEstablishment> {
+    return this.getEstablishmentCall().pipe(
+      map(ests => ests.find(est => est.trcid === id)),
+    );
+  }
+
   getAvailableCities() {
     return this.getEstablishmentCall().pipe(
       map((establishments: IEstablishment[]) => {
