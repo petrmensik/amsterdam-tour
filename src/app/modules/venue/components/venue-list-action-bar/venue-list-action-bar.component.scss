@@ -1,0 +1,23 @@
+@import 'utils/functions';
+
+.venue-action {
+  &__input {
+    border: 0;
+    outline: 0;
+  }
+
+  &__selected {
+    margin-right: rem-calc(4);
+
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.venue-cities {
+  min-height: 2rem;
+  margin-bottom: rem-calc(8);
+}

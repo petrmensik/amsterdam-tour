@@ -1,0 +1,36 @@
+<div fxLayout="column">
+  <div fxLayout="row" class="venue-action" fxLayoutAlign="space-between center" fxLayoutGap="2rem">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <fa-icon [icon]="['fas', 'search']"></fa-icon>
+        </span>
+      </div>
+      <input  #search
+              type="text"
+              class="form-control"
+              (keyup)="onSearchChange(search.value)"
+              placeholder="{{ 'venue.action.quick-search' | translate }}"/>
+    </div>
+
+    <div class="input-group mb-3">
+      <input  #cityInput
+              type="text"
+              class="form-control"
+              [ngbTypeahead]="citySearch"
+              (selectItem)="select($event)"
+              placeholder="{{ 'venue.action.select-cities' | translate }}"/>
+      <div class="input-group-append">
+        <span class="input-group-text">
+          <fa-icon [icon]="['fas', 'search-location']"></fa-icon>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div fxLayout="row-reverse" class="venue-cities">
+    <div *ngFor="let city of selectedCities" class="btn btn-primary btn-sm venue-action__selected" fxLayoutGap="0.5rem">
+      <span>{{ city }}</span><span (click)="close(city)">x</span>
+    </div>
+  </div>
+</div>

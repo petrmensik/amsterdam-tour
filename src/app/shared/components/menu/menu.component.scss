@@ -1,0 +1,97 @@
+@import 'utils/variables';
+
+@media only screen and (max-width: $responsive-break-point) {
+  .sidenav {
+    bottom: 0;
+    width: 100vw;
+    height: 5rem;
+
+    &__menu {
+      flex-direction: row;
+      margin: 0.5rem;
+
+      &__item {
+        width: 5rem;
+
+        &:last-child {
+          margin-left: auto;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $responsive-break-point) {
+  .sidenav {
+    top: 0;
+    width: 5rem;
+    height: 100vh;
+
+    &:hover {
+      width: 16rem;
+
+      span[class$='__text'] {
+        display: inline;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+
+    &__menu {
+      flex-direction: column;
+      margin: 1rem 0.5rem;
+
+      &__item {
+        height: 5rem;
+        width: 100%;
+
+        &:last-child {
+          margin-top: auto;
+        }
+      }
+    }
+  }
+}
+
+.sidenav {
+  position: fixed;
+  z-index: 10;
+  background-color: $grey-dark;
+  transition: width 200ms ease;
+
+  &__menu {
+    display: flex;
+    color: $grey-light;
+    height: 100%;
+
+    &__item {
+      display: flex;
+      justify-content: center;
+
+      &:first-child {
+        font-weight: $weight-semi-bold;
+        margin-bottom: 1rem;
+        letter-spacing: 0.3ch;
+      }
+      
+      &__link {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        text-decoration: none;
+        color: inherit;
+
+        &:hover,
+        &:focus {
+          color: $neutral;
+        }
+
+        &__text {
+          display: none;
+          margin-left: 1rem;
+        }
+      }
+    }
+  }
+}

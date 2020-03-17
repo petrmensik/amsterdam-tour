@@ -11,9 +11,9 @@ export class LangService {
 
   constructor(private translate: TranslateService) { }
 
-  isTranslationAvailable(key: string): boolean {
-    return this.translate.instant(key, {}) !== key;
-  }
+  getCurrentLocalization = (): string => this.translate.currentLang;
+
+  isTranslationAvailable = (key: string): boolean => this.translate.instant(key, {}) !== key;
 
   getInstant(key: string | string[], params?: any, fallback?: string): string {
     const translation = this.translate.instant(key, params);

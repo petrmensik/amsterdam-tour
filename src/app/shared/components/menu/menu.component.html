@@ -1,0 +1,10 @@
+<nav class="sidenav">
+  <ul class="sidenav__menu">
+    <li *ngFor="let item of menuItemList" class="sidenav__menu__item">
+      <a [routerLink]="item.route" class="sidenav__menu__item__link">
+        <fa-icon [icon]="item.icon" class="fa-3x"></fa-icon>
+        <span class="sidenav__menu__item__link__text">{{ 'menu.' + item.key | translate }}</span>
+      </a>
+    </li>
+  </ul>
+</nav>

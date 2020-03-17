@@ -4,5 +4,25 @@
     "http-errors": {
       "404": "The requested resource is missing."
     }
+  },
+  "menu": {
+    "event": "Events",
+    "git": "amsterdam-tour",
+    "home": "Amsterdam Tour",
+    "map": "Map",
+    "venue": "Venues"
+  },
+  "venue": {
+    "action": {
+      "select-cities": "Start typing city to filter",
+      "quick-search": "Search for name, city, address or year established"
+    },
+    "table": {
+      "title": "Name",
+      "city": "City",
+      "zipcode": "Zip code",
+      "adress": "Address",
+      "start-year": "Start year"
+    }
   }
 }

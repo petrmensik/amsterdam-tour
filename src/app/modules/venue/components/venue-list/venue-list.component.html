@@ -1,0 +1,44 @@
+<div class="container-fluid" >
+  <ng-container *ngIf="establishments; else loading">
+    <amst-venue-list-action-bar
+      (filterData)="filterDataByString($event)"
+      (filterCities)="filterDataByCity($event)">
+    </amst-venue-list-action-bar>
+    <table class="table">
+      <thead>
+        <tr>
+          <th *ngFor="let headerKey of VENUE_COLS" scope="col">
+            {{ 'venue.table.' + headerKey | translate }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let venue of getEstablishments | paginationSlice:page-1:venuesPerPage">
+          <th scope="row">{{ venue.title }}</th>
+          <td>{{ venue.location?.city | titlecase }}</td>
+          <td>{{ venue.location?.zipcode }}</td>
+          <td>{{ venue.location?.adress }}</td>
+          <td>{{ getStartYear(venue.dates?.startMoment) }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div fxLayoutAlign="end end">
+      <ngb-pagination
+        [collectionSize]="getEstablishments.length"
+        [(page)]="page"
+        [pageSize]="venuesPerPage"
+        maxSize="5"
+        rotate="true">
+      </ngb-pagination>
+    </div>
+
+  </ng-container>
+  <ng-template #loading>
+    <div class="app-loading">
+      <svg class="spinner" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
+      </svg>
+    </div>
+  </ng-template>
+</div>
