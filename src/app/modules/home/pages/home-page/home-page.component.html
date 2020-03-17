@@ -1,1 +1,12 @@
-<p>home-page works!</p>
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4" translate>home.title</h1>
+  <p class="lead" translate>home.description</p>
+  <p class="pt-3" translate>home.feature</p>
+  <div class="d-flex">
+    <ul class="list-group mx-auto justify-content-center w-50">
+      <li *ngFor="let li of ' '.repeat(4).split(''); let i = index" class="list-group-item">
+        {{ ('home.list.feature-' + (i + 1)) | translate }}
+      </li>
+    </ul>
+  </div>
+</div>

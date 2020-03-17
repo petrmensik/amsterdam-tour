@@ -5,6 +5,17 @@
       "404": "The requested resource is missing."
     }
   },
+  "home": {
+    "description": "Application to display list and details of some of Amsterdam's venues.",
+    "feature": "Project is build maily using these frameworks:",
+    "list": {
+      "feature-1": "Angular v9",
+      "feature-2": "Bootstrap (ngBootstrap)",
+      "feature-3": "Typescript 3.7",
+      "feature-4": "Sass"
+    },
+    "title": "Amsterdam Tour"
+  },
   "menu": {
     "event": "Events",
     "git": "amsterdam-tour",
@@ -14,15 +25,15 @@
   },
   "venue": {
     "action": {
-      "select-cities": "Start typing city to filter",
-      "quick-search": "Search for name, city, address or year established"
+      "quick-search": "Search for name, city, address or year established",
+      "select-cities": "Start typing city to filter"
     },
     "table": {
-      "title": "Name",
-      "city": "City",
-      "zipcode": "Zip code",
       "adress": "Address",
-      "start-year": "Start year"
+      "city": "City",
+      "start-year": "Start year",
+      "title": "Name",
+      "zipcode": "Zip code"
     }
   }
 }

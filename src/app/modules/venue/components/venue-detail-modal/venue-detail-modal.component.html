@@ -1,0 +1,24 @@
+<div class="card venue-detail">
+  <button type="button" class="btn btn-light venue-detail__close" (click)="closeModal()" tabindex="-1">
+    <span>&times;</span>
+  </button>
+  <ngb-carousel *ngIf="venueImages.length" showNavigationArrows="true" showNavigationIndicators="true">
+    <ng-template ngbSlide *ngFor="let image of venueImages">
+      <div class="picsum-img-wrapper">
+        <img [src]="image.url" alt="{{ venue.title }}" class="w-100">
+      </div>
+    </ng-template>
+  </ngb-carousel>
+
+  <div class="card-body">
+    <div fxLayout="row" fxLayoutAlign="space-between start">
+      <h5 class="card-title">{{ venue.title }}</h5>
+      <span class="venue-detail__address">{{ fullAddress | titlecase }}</span>
+    </div>
+    <div fxLayout="row" fxLayoutGap="1rem">
+      <a *ngFor="let url of venue.urls" [href]="url" target="_blank">{{ urlLabel(url) }}</a>
+    </div>
+    <p class="card-text" *ngFor="let desc of fullDescription">{{ desc }}</p>
+    <p class="card-text venue-detail__long-description" [innerHTML]="longDescription"></p>
+  </div>
+</div>

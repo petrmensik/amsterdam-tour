@@ -1,5 +1,6 @@
 export interface IMenuItem {
   key: string;
   icon: string[];
-  route: string[];
+  route?: string[];
+  link?: string;
 }

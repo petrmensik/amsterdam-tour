@@ -6,7 +6,7 @@ import { EstablishmentService } from '@amst/core';
 @Component({
   selector: 'amst-venue-list-action-bar',
   templateUrl: './venue-list-action-bar.component.html',
-  styleUrls: ['./venue-list-action-bar.component.scss']
+  styleUrls: ['./venue-list-action-bar.component.scss'],
 })
 export class VenueListActionBarComponent implements OnInit, OnDestroy {
   @Output() filterData: EventEmitter<string> = new EventEmitter();

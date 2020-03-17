@@ -1,4 +1,5 @@
 @import 'utils/functions';
+@import 'utils/variables';
 
 .container-fluid {
   height: calc(100vh - 2rem);
@@ -9,6 +10,14 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      
+      th.venue-name {
+        cursor: pointer;
+
+        &:hover {
+          color: lighten($grey-dark, 25%);
+        }
+      }
     }
   }
 }

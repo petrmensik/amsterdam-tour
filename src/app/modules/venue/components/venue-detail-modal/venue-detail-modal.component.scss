@@ -1,0 +1,24 @@
+@import 'utils/variables';
+
+.venue-detail {
+  &__address {
+    font-size: smaller;
+  }
+
+  &__long-description {
+    font-size: 1rem;
+  }
+
+  &__close {
+    font-weight: $weight-bold;
+    position: absolute;
+    z-index: 5;
+    right: 0;
+    border: none;
+    background: rgba($grey-light, 50%);
+    
+    &:focus {
+      outline: none;
+    }
+  }
+}

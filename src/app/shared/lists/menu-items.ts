@@ -24,6 +24,6 @@ export const MENU_ITEM_LIST: IMenuItem[] = [
   {
     key: 'git',
     icon: ['fab', 'github'],
-    route: ['/', 'git'],
+    link: 'https://github.com/petrmensik/amsterdam-tour',
   },
 ];
