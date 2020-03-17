@@ -10,3 +10,4 @@ export * from './models/menu-item.interface';
 export * from './models/establishment.interface';
 export * from './models/event.interface';
 export * from './models/location.interface';
+export * from './models/moment.interface';

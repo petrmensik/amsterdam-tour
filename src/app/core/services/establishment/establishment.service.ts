@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IEstablishment } from '@amst/core';
-import { map } from 'rxjs/operators';
-import { compact, get } from 'lodash';
+import { map, publishReplay, refCount } from 'rxjs/operators';
+import { compact, get, sortedUniq } from 'lodash';
 
 import { LangService } from '../lang/lang.service';
 import { IDetail } from '@amst/core/models/establishment.interface';
@@ -14,6 +14,7 @@ import { MomentService } from '../moment/moment.service';
 })
 export class EstablishmentService {
   private readonly ESTABLISHMENTS_JSON = '/assets/data/establishment-data.json';
+  private cachedEstablishments: Observable<IEstablishment[]>;
 
   constructor(
     private http: HttpClient,
@@ -22,19 +23,44 @@ export class EstablishmentService {
   ) { }
 
   getAllEstablishments(): Observable<IEstablishment[]> {
-    return this.http.get<IEstablishment[]>(this.ESTABLISHMENTS_JSON).pipe(
+    return this.getEstablishmentCall().pipe(
       map((ests: IEstablishment[]) => {
-        return ests.map((est: IEstablishment) => (
-          {
-            ...est,
-            dates: {
-              startMoment: this.momentService.parseDate(est.dates?.startdate),
-              endMoment: this.momentService.parseDate(est.dates?.enddate),
-            },
-            quickSearch: this.buildQuickSearch(est),
-          }));
+        return ests
+          .sort((a: IEstablishment, b: IEstablishment) => a.title.localeCompare(b.title))
+          .map((est: IEstablishment) => (
+            {
+              ...est,
+              dates: {
+                startMoment: this.momentService.parseDate(est.dates?.startdate),
+                endMoment: this.momentService.parseDate(est.dates?.enddate),
+              },
+              quickSearch: this.buildQuickSearch(est),
+            }),
+          );
       }),
     );
+  }
+
+  getAvailableCities() {
+    return this.getEstablishmentCall().pipe(
+      map((establishments: IEstablishment[]) => {
+        return sortedUniq(establishments
+          .filter(ests => !!ests.location?.city)
+          .map(est => est.location.city)
+          .sort((a: string, b: string) => a.localeCompare(b)),
+        );
+      }),
+    );
+  }
+
+  private getEstablishmentCall(): Observable<IEstablishment[]> {
+    if (!this.cachedEstablishments) {
+      this.cachedEstablishments = this.http.get<IEstablishment[]>(this.ESTABLISHMENTS_JSON).pipe(
+        publishReplay(1),
+        refCount(),
+      );
+    }
+    return this.cachedEstablishments;
   }
 
   private buildQuickSearch(establishment: IEstablishment) {

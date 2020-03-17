@@ -1,29 +1,37 @@
-<div class="container-fluid">
+<div class="container-fluid" >
   <ng-container *ngIf="establishments; else loading">
+    <amst-venue-list-action-bar
+      (filterData)="filterDataByString($event)"
+      (filterCities)="filterDataByCity($event)">
+    </amst-venue-list-action-bar>
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">ToDo</th>
-          <th scope="col">...</th>
-          <th scope="col">...</th>
+          <th *ngFor="let headerKey of VENUE_COLS" scope="col">
+            {{ 'venue.table.' + headerKey | translate }}
+          </th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let venue of establishments | paginationSlice:page-1:VENUES_PER_PAGE">
-          <th scope="row">{{ venue.trcid }}</th>
-          <td>{{ venue.trcid }}</td>
-          <td>{{ venue.trcid }}</td>
+        <tr *ngFor="let venue of getEstablishments | paginationSlice:page-1:venuesPerPage">
+          <th scope="row">{{ venue.title }}</th>
+          <td>{{ venue.location?.city | titlecase }}</td>
+          <td>{{ venue.location?.zipcode }}</td>
+          <td>{{ venue.location?.adress }}</td>
+          <td>{{ getStartYear(venue.dates?.startMoment) }}</td>
         </tr>
       </tbody>
     </table>
 
+    <div fxLayoutAlign="end end">
       <ngb-pagination
-        [collectionSize]="establishments.length"
+        [collectionSize]="getEstablishments.length"
         [(page)]="page"
-        [pageSize]="VENUES_PER_PAGE"
+        [pageSize]="venuesPerPage"
         maxSize="5"
         rotate="true">
       </ngb-pagination>
+    </div>
 
   </ng-container>
   <ng-template #loading>

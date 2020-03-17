@@ -7,9 +7,14 @@ import { VenueComponent } from './pages/venue/venue.component';
 import { VenueListComponent } from './components/venue-list/venue-list.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { VenueListActionBarComponent } from './components/venue-list-action-bar/venue-list-action-bar.component';
 
 @NgModule({
-  declarations: [VenueComponent, VenueListComponent],
+  declarations: [
+    VenueComponent,
+    VenueListComponent,
+    VenueListActionBarComponent,
+  ],
   imports: [
     CommonModule,
     SharedModule,

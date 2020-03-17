@@ -4,7 +4,7 @@ main {
   padding: 1rem;
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: $responsive-break-point) {
   main {
     margin-left: 5rem;
   }

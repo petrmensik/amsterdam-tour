@@ -1,0 +1,14 @@
+@import 'utils/functions';
+
+.container-fluid {
+  height: calc(100vh - 2rem);
+
+  .table {
+    tr {
+      height: rem-calc(50);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

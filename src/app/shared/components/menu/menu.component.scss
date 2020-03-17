@@ -1,6 +1,6 @@
 @import 'utils/variables';
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: $responsive-break-point) {
   .sidenav {
     bottom: 0;
     width: 100vw;
@@ -21,7 +21,7 @@
   }
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: $responsive-break-point) {
   .sidenav {
     top: 0;
     width: 5rem;

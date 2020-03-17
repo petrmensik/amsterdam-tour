@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FaIconLibrary, FaConfig } from '@fortawesome/angular-fontawesome';
 import { faListAlt, faMap, faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
-import { faBicycle } from '@fortawesome/free-solid-svg-icons';
+import { faBicycle, faSearchLocation, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { MomentService } from '@amst/core';
 
@@ -20,7 +20,15 @@ export class AppComponent {
     private faLibrary: FaIconLibrary,
     private faConfig: FaConfig,
   ) {
-    this.faLibrary.addIcons(faBicycle, faListAlt, faGithub, faMap, faCalendarAlt);
+    this.faLibrary.addIcons(
+      faBicycle,
+      faListAlt,
+      faGithub,
+      faMap,
+      faCalendarAlt,
+      faSearchLocation,
+      faSearch,
+    );
     this.faConfig.defaultPrefix = 'far';
     this.faConfig.fixedWidth = true;
 
