@@ -6,7 +6,7 @@ import { IEstablishment, LangService, IMedium } from '@amst/core';
 @Component({
   selector: 'amst-venue-detail-modal',
   templateUrl: './venue-detail-modal.component.html',
-  styleUrls: ['./venue-detail-modal.component.scss']
+  styleUrls: ['./venue-detail-modal.component.scss'],
 })
 export class VenueDetailModalComponent implements OnInit {
   @Input() venue: IEstablishment;

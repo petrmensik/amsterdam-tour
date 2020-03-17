@@ -8,7 +8,7 @@ import { mergeMap, filter } from 'rxjs/operators';
 @Component({
   selector: 'amst-venue-list',
   templateUrl: './venue-list.component.html',
-  styleUrls: ['./venue-list.component.scss']
+  styleUrls: ['./venue-list.component.scss'],
 })
 export class VenueListComponent implements OnInit {
   @Input() establishments: IEstablishment[];

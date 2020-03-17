@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'amst-venue',
   templateUrl: './venue.component.html',
-  styleUrls: ['./venue.component.scss'],
 })
 export class VenueComponent implements OnInit {
 

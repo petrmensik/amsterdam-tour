@@ -10,8 +10,8 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-
-      th {
+      
+      th.venue-name {
         cursor: pointer;
 
         &:hover {
