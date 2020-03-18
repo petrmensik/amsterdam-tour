@@ -11,7 +11,7 @@
     [zoom]="amstCenter.zoom"
     [disableDefaultUI]="false"
     [zoomControl]="true"
-    (mapClick)="closeInfoWindow()">
+    (mapClick)="closePrevInfoWindow()">
 
     <agm-marker 
       *ngFor="let marker of getEstablishments"
@@ -26,6 +26,25 @@
           <button type="button" class="btn btn-light btn-sm" (click)="openDetail(marker.trcid)" translate>
             venue.map.open-detail
           </button>
+        </div>
+      </agm-info-window>
+      
+    </agm-marker>
+
+    <agm-marker 
+      *ngFor="let marker of closeEvents"
+      [latitude]="marker.location.latitude | toNumber"
+      [longitude]="marker.location.longitude | toNumber"
+      [markerDraggable]="false"
+      [opacity]="0.4">
+      
+      <agm-info-window #eventInfo>
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="0.5rem">
+          <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="1rem">
+            <span>{{ marker.title }} </span>
+            <small class="text-muted text-nowrap" translate [translateParams]="{ distance: marker.distanceToVenue }">venue.detail.distance</small>
+          </div>
+          <span class="mb-1 text-muted">{{ marker.dates | getDateRange }}</span>
         </div>
       </agm-info-window>
       

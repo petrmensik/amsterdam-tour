@@ -89,8 +89,7 @@ export class VenueListComponent implements OnInit {
     if (venue) {
       const modRef: NgbModalRef = this.ngbModal.open(VenueDetailModalComponent);
       modRef.componentInstance.venue = venue;
-      modRef.result.then(
-        () => this.navigateToVenue(),
+      modRef.result.then().finally(
         () => this.navigateToVenue(),
       );
     }

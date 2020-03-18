@@ -11,7 +11,7 @@ import {
   IGeoCoordinate,
   MomentService,
 } from '@amst/core';
-import { map, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
 
 @Component({
@@ -81,7 +81,6 @@ export class VenueDetailModalComponent implements OnInit, OnDestroy {
     if (ev === 'events' && !this.closeEvents) {
       const venueCoordinates: IGeoCoordinate = this.geoDistService.getCoordinatesFromLocation(this.venue.location);
       this.eventService.getAllEvents().pipe(
-        delay(1000),
         map((events: IEvent[]) => events.map(event => ({
           ...event,
           distanceToVenue: this.geoDistService.getDistance(
