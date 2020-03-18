@@ -6,3 +6,8 @@ export interface ILocation {
   latitude: string;
   longitude: string;
 }
+
+export interface IGeoCoordinate {
+  lat: number;
+  lon: number;
+}

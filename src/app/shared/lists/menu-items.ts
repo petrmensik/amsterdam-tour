@@ -12,11 +12,6 @@ export const MENU_ITEM_LIST: IMenuItem[] = [
     route: ['/', 'venues', 'list'],
   },
   {
-    key: 'event',
-    icon: ['far', 'calendar-alt'],
-    route: ['/', 'event'],
-  },
-  {
     key: 'map',
     icon: ['far', 'map'],
     route: ['/', 'venues', 'map'],

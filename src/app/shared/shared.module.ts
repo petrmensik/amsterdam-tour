@@ -14,6 +14,8 @@ import { PaginationSlicePipe } from './pipes/pagination-slice/pagination-slice.p
 import { GetYearPipe } from './pipes/get-year/get-year.pipe';
 import { DomainOnlyPipe } from './pipes/domain-only/domain-only.pipe';
 import { ToNumberPipe } from './pipes/to-number/to-number.pipe';
+import { GetFullAddressPipe } from './pipes/get-full-address/get-full-address.pipe';
+import { GetDateRangePipe } from './pipes/get-date-range/get-date-range.pipe';
 
 
 @NgModule({
@@ -23,6 +25,8 @@ import { ToNumberPipe } from './pipes/to-number/to-number.pipe';
     GetYearPipe,
     DomainOnlyPipe,
     ToNumberPipe,
+    GetFullAddressPipe,
+    GetDateRangePipe,
   ],
   imports: [
     CommonModule,
@@ -53,6 +57,8 @@ import { ToNumberPipe } from './pipes/to-number/to-number.pipe';
     DomainOnlyPipe,
     ToNumberPipe,
     AgmCoreModule,
+    GetFullAddressPipe,
+    GetDateRangePipe,
   ],
 })
 export class SharedModule { }

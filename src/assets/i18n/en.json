@@ -28,6 +28,13 @@
       "quick-search": "Search for name, city, address or year established",
       "select-cities": "Start typing city to filter"
     },
+    "detail": {
+      "basic-info": "Venue info",
+      "distance": "{{distance}} m",
+      "events-nearby": "Nearby events",
+      "long-description": "Description",
+      "search-event": "Search for name, city, year or month"
+    },
     "map": {
       "open-detail": "Open detail"
     },

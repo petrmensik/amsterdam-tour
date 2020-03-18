@@ -21,4 +21,12 @@
       outline: none;
     }
   }
+
+  &__card-loading {
+    height: unset;
+
+    .spinner {
+      position: initial;
+    }
+  }
 }

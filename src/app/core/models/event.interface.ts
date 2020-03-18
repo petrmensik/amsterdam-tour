@@ -11,6 +11,7 @@ export interface IEvent {
   dates: IEventDates;
   lastupdated: string;
   eigenschappen?: any;
+  distanceToVenue?: number;
 }
 
 export interface IEventDetail {

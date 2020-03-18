@@ -13,12 +13,62 @@
   <div class="card-body">
     <div fxLayout="row" fxLayoutAlign="space-between start">
       <h5 class="card-title">{{ venue.title }}</h5>
-      <span class="venue-detail__address">{{ fullAddress | titlecase }}</span>
+      <span class="venue-detail__address">{{ venue.location | getFullAddress: { withZip: false } | titlecase }}</span>
     </div>
-    <div fxLayout="row" fxLayoutGap="1rem">
-      <a *ngFor="let url of venue.urls" [href]="url" target="_blank">{{ url | domainOnly }}</a>
-    </div>
-    <p class="card-text" *ngFor="let desc of fullDescription">{{ desc }}</p>
-    <p class="card-text venue-detail__long-description" [innerHTML]="longDescription"></p>
+    <ul ngbNav #nav="ngbNav" [destroyOnHide]="false" class="nav-tabs" (activeIdChange)="tabChange($event)">
+      <li [ngbNavItem]="'basic'">
+        <a ngbNavLink translate>venue.detail.basic-info</a>
+        <ng-template ngbNavContent>
+          <div fxLayout="row" fxLayoutGap="1rem">
+            <a *ngFor="let url of venue.urls" [href]="url" target="_blank">{{ url | domainOnly }}</a>
+          </div>
+          <p class="card-text" *ngFor="let desc of fullDescription">{{ desc }}</p>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="'description'">
+        <a ngbNavLink translate>venue.detail.long-description</a>
+        <ng-template ngbNavContent>
+          <p class="card-text venue-detail__long-description" [innerHTML]="longDescription"></p>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="'events'">
+        <a ngbNavLink translate>venue.detail.events-nearby</a>
+        <ng-template ngbNavContent>
+          <ng-container *ngIf="closeEvents; else loading">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <fa-icon [icon]="['fas', 'search']"></fa-icon>
+                </span>
+              </div>
+              <input  #search
+                      type="text"
+                      class="form-control"
+                      (keyup)="onSearchChange(search.value)"
+                      placeholder="{{ 'venue.detail.search-event' | translate }}"/>
+            </div>
+            <div class="list-group">
+              <div *ngFor="let event of getEvents" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">{{ event.title }}</h5>
+                  <small class="text-muted text-nowrap" translate [translateParams]="{ distance: event.distanceToVenue }">venue.detail.distance</small>
+                </div>
+                <p class="mb-1 text-muted">{{ event.dates | getDateRange }}</p>
+                <p class="mb-1">{{ event.details.en.shortdescription }}</p>
+                <small class="text-muted">{{ event.location | getFullAddress:{ withZip: true } }}</small>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #loading>
+            <div class="venue-detail__card-loading app-loading">
+              <svg class="spinner" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
+              </svg>
+            </div>
+          </ng-template>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav" class="mt-2 venue-detail__tab-content"></div>
   </div>
 </div>
