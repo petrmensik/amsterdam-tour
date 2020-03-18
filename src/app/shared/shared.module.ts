@@ -7,14 +7,22 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { httpLoaderFactory } from '@amst/core';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AgmCoreModule } from '@agm/core';
 
 import { MenuComponent } from './components/menu/menu.component';
 import { PaginationSlicePipe } from './pipes/pagination-slice/pagination-slice.pipe';
+import { GetYearPipe } from './pipes/get-year/get-year.pipe';
+import { DomainOnlyPipe } from './pipes/domain-only/domain-only.pipe';
+import { ToNumberPipe } from './pipes/to-number/to-number.pipe';
+
 
 @NgModule({
   declarations: [
     MenuComponent,
     PaginationSlicePipe,
+    GetYearPipe,
+    DomainOnlyPipe,
+    ToNumberPipe,
   ],
   imports: [
     CommonModule,
@@ -30,6 +38,9 @@ import { PaginationSlicePipe } from './pipes/pagination-slice/pagination-slice.p
       isolate: false,
     }),
     RouterModule,
+    AgmCoreModule.forRoot({
+      apiKey: '',
+    }),
   ],
   exports: [
     FlexLayoutModule,
@@ -38,6 +49,10 @@ import { PaginationSlicePipe } from './pipes/pagination-slice/pagination-slice.p
     TranslateModule,
     NgbModule,
     PaginationSlicePipe,
+    GetYearPipe,
+    DomainOnlyPipe,
+    ToNumberPipe,
+    AgmCoreModule,
   ],
 })
 export class SharedModule { }

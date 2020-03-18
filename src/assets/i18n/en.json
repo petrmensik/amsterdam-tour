@@ -28,6 +28,9 @@
       "quick-search": "Search for name, city, address or year established",
       "select-cities": "Start typing city to filter"
     },
+    "map": {
+      "open-detail": "Open detail"
+    },
     "table": {
       "adress": "Address",
       "city": "City",

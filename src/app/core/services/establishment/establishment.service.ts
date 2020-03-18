@@ -30,10 +30,6 @@ export class EstablishmentService {
           .map((est: IEstablishment) => (
             {
               ...est,
-              dates: {
-                startMoment: this.momentService.parseDate(est.dates?.startdate),
-                endMoment: this.momentService.parseDate(est.dates?.enddate),
-              },
               quickSearch: this.buildQuickSearch(est),
             }),
           );

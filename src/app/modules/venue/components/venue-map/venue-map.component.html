@@ -1,0 +1,43 @@
+<ng-container *ngIf="establishments; else loading">
+  <amst-venue-list-action-bar
+    (filterData)="filterDataByString($event)"
+    (filterCities)="filterDataByCity($event)">
+  </amst-venue-list-action-bar>
+
+  <agm-map 
+    class="venues-google-map"
+    [latitude]="amstCenter.lat"
+    [longitude]="amstCenter.lng"
+    [zoom]="amstCenter.zoom"
+    [disableDefaultUI]="false"
+    [zoomControl]="true"
+    (mapClick)="closeInfoWindow()">
+
+    <agm-marker 
+      *ngFor="let marker of getEstablishments"
+      (markerClick)="clickedMarker(marker, info)"
+      [latitude]="marker.location.latitude | toNumber"
+      [longitude]="marker.location.longitude | toNumber"
+      [markerDraggable]="false">
+      
+      <agm-info-window #info>
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="0.5rem">
+          <span>{{ marker.title }} </span>
+          <button type="button" class="btn btn-light btn-sm" (click)="openDetail(marker.trcid)" translate>
+            venue.map.open-detail
+          </button>
+        </div>
+      </agm-info-window>
+      
+    </agm-marker>
+
+  </agm-map>
+
+</ng-container>
+<ng-template #loading>
+  <div class="app-loading">
+    <svg class="spinner" viewBox="25 25 50 50">
+      <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
+    </svg>
+  </div>
+</ng-template>
