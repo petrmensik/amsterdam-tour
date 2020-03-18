@@ -1,9 +1,17 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IEstablishment, EstablishmentService } from '@amst/core';
+import {
+  IEstablishment,
+  EstablishmentService,
+  IEvent,
+  EventService,
+  GeoDistService,
+  ILocation,
+  IGeoCoordinate,
+} from '@amst/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { VenueDetailModalComponent } from '../venue-detail-modal/venue-detail-modal.component';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { mergeMap, filter } from 'rxjs/operators';
+import { map, mergeMap, filter } from 'rxjs/operators';
 import { AgmInfoWindow } from '@agm/core';
 
 @Component({
@@ -15,6 +23,7 @@ export class VenueMapComponent implements OnInit {
   @Input() establishments: IEstablishment[];
 
   filteredEstablishments: IEstablishment[];
+  closeEvents: IEvent[] = [];
 
   private filteredCities: string[] = [];
   private filteredSubstring = '';
@@ -31,6 +40,8 @@ export class VenueMapComponent implements OnInit {
     private router: Router,
     private activeRouter: ActivatedRoute,
     private establishmentService: EstablishmentService,
+    private eventService: EventService,
+    private geoDistService: GeoDistService,
   ) { }
 
   ngOnInit(): void {
@@ -47,13 +58,13 @@ export class VenueMapComponent implements OnInit {
   }
 
   filterDataByString(search: string) {
-    this.closeInfoWindow();
+    this.closePrevInfoWindow();
     this.filteredSubstring = search;
     this.filteredEstablishments = this.getUpdatedView();
   }
 
   filterDataByCity(cities: string[]) {
-    this.closeInfoWindow();
+    this.closePrevInfoWindow();
     this.filteredCities = cities;
     this.filteredEstablishments = this.getUpdatedView();
   }
@@ -63,13 +74,15 @@ export class VenueMapComponent implements OnInit {
   }
   
   clickedMarker(establishment: IEstablishment, info: AgmInfoWindow) {
-    this.closeInfoWindow();
+    this.closePrevInfoWindow();
     this.amstCenter.lat = parseFloat(establishment.location.latitude.replace(/,/g, '.'));
     this.amstCenter.lng = parseFloat(establishment.location.longitude.replace(/,/g, '.'));
     this.openedInfo = info;
+    this.loadCloseEvents(establishment.location);
   }
 
-  closeInfoWindow() {
+  closePrevInfoWindow() {
+    this.closeEvents = [];
     if (this.openedInfo) {
       this.openedInfo.close();
       delete this.openedInfo;
@@ -94,8 +107,7 @@ export class VenueMapComponent implements OnInit {
     if (venue) {
       const modRef: NgbModalRef = this.ngbModal.open(VenueDetailModalComponent);
       modRef.componentInstance.venue = venue;
-      modRef.result.then(
-        () => this.navigateToVenue(),
+      modRef.result.then().finally(
         () => this.navigateToVenue(),
       );
     }
@@ -109,5 +121,29 @@ export class VenueMapComponent implements OnInit {
         queryParams: id ? { open: id } : null,
         queryParamsHandling: '',
       });
+  }
+
+  private loadCloseEvents(toLoc: ILocation) {
+    const venueCoordinates: IGeoCoordinate = this.geoDistService.getCoordinatesFromLocation(toLoc);
+    this.eventService.getAllEvents().pipe(
+      map((events: IEvent[]) => events.map(event => ({
+        ...event,
+        distanceToVenue: this.geoDistService.getDistance(
+          venueCoordinates,
+          this.geoDistService.getCoordinatesFromLocation(event.location),
+        ),
+      }))),
+      map((events: IEvent[]) => {
+        return events
+          .filter(event => this.isEventClose(event))
+          .sort((a, b) => a.distanceToVenue < b.distanceToVenue ? -1 : 1);
+      }),
+    ).subscribe(
+      (events: IEvent[]) => this.closeEvents = events,
+    );
+  }
+
+  private isEventClose(event: IEvent): boolean {
+    return event.distanceToVenue < 1000;
   }
 }

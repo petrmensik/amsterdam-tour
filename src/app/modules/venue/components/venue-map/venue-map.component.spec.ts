@@ -3,7 +3,7 @@ import { TranslateMockPipe } from '@amst/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { EstablishmentService } from '@amst/core';
+import { EstablishmentService, EventService, GeoDistService } from '@amst/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VenueMapComponent } from './venue-map.component';
 
@@ -40,6 +40,19 @@ describe('VenueMapComponent', () => {
               componentInstance: {},
               result: new Promise(resolve => resolve(true)),
             }),
+          },
+        },
+        {
+          provide: EventService,
+          useValue: {
+            getAllEvents: () => [],
+          },
+        },
+        {
+          provide: GeoDistService,
+          useValue: {
+            getCoordinatesFromLocation: () => ({ lat: 1, lon: 0 }),
+            getDistance: () => 500,
           },
         },
       ],
