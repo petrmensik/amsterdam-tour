@@ -16,7 +16,7 @@
       <span class="venue-detail__address">{{ fullAddress | titlecase }}</span>
     </div>
     <div fxLayout="row" fxLayoutGap="1rem">
-      <a *ngFor="let url of venue.urls" [href]="url" target="_blank">{{ urlLabel(url) }}</a>
+      <a *ngFor="let url of venue.urls" [href]="url" target="_blank">{{ url | domainOnly }}</a>
     </div>
     <p class="card-text" *ngFor="let desc of fullDescription">{{ desc }}</p>
     <p class="card-text venue-detail__long-description" [innerHTML]="longDescription"></p>

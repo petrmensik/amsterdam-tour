@@ -4,31 +4,27 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { VenueDetailModalComponent } from '../venue-detail-modal/venue-detail-modal.component';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { mergeMap, filter } from 'rxjs/operators';
+import { AgmInfoWindow } from '@agm/core';
 
 @Component({
-  selector: 'amst-venue-list',
-  templateUrl: './venue-list.component.html',
-  styleUrls: ['./venue-list.component.scss'],
+  selector: 'amst-venue-map',
+  templateUrl: './venue-map.component.html',
+  styleUrls: ['./venue-map.component.scss'],
 })
-export class VenueListComponent implements OnInit {
+export class VenueMapComponent implements OnInit {
   @Input() establishments: IEstablishment[];
 
   filteredEstablishments: IEstablishment[];
 
   private filteredCities: string[] = [];
   private filteredSubstring = '';
+  private openedInfo: AgmInfoWindow;
 
-  collectionSize: number;
-  page = 1;
-  venuesPerPage: number;
-
-  VENUE_COLS: string[] = [
-    'title',
-    'city',
-    'zipcode',
-    'adress',
-    'start-year',
-  ];
+  amstCenter: { lat: number, lng: number, zoom: number } = {
+    lat: 52.3667,
+    lng: 4.8945,
+    zoom: 10,
+  };
 
   constructor(
     private ngbModal: NgbModal,
@@ -38,8 +34,6 @@ export class VenueListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.venuesPerPage = this.getPageSizeFromViewport();
-
     this.activeRouter.queryParams.pipe(
       filter((params: Params) => !!params.open),
       mergeMap((param: Params) => this.establishmentService.getEstablishmentById(param.open)),
@@ -53,11 +47,13 @@ export class VenueListComponent implements OnInit {
   }
 
   filterDataByString(search: string) {
+    this.closeInfoWindow();
     this.filteredSubstring = search;
     this.filteredEstablishments = this.getUpdatedView();
   }
 
   filterDataByCity(cities: string[]) {
+    this.closeInfoWindow();
     this.filteredCities = cities;
     this.filteredEstablishments = this.getUpdatedView();
   }
@@ -65,9 +61,22 @@ export class VenueListComponent implements OnInit {
   openDetail(venueId: string) {
     this.navigateToVenue(venueId);
   }
+  
+  clickedMarker(establishment: IEstablishment, info: AgmInfoWindow) {
+    this.closeInfoWindow();
+    this.amstCenter.lat = parseFloat(establishment.location.latitude.replace(/,/g, '.'));
+    this.amstCenter.lng = parseFloat(establishment.location.longitude.replace(/,/g, '.'));
+    this.openedInfo = info;
+  }
+
+  closeInfoWindow() {
+    if (this.openedInfo) {
+      this.openedInfo.close();
+      delete this.openedInfo;
+    }
+  }
 
   private getUpdatedView(): IEstablishment[] {
-    this.page = 1;
     return this.establishments.filter(
       (est: IEstablishment) => this.isCitySelected(est) && this.isSearchMatch(est),
     );
@@ -79,10 +88,6 @@ export class VenueListComponent implements OnInit {
 
   private isSearchMatch(est: IEstablishment): boolean {
     return est.quickSearch.includes(this.filteredSubstring);
-  }
-
-  private getPageSizeFromViewport(): number {
-    return Math.floor((window.innerHeight - 300) / 50) || 1;
   }
 
   private openModalWithVenue(venue: IEstablishment) {
@@ -98,7 +103,7 @@ export class VenueListComponent implements OnInit {
 
   private navigateToVenue(id?: string) {
     this.router.navigate(
-      ['/', 'venues', 'list'],
+      ['/', 'venues', 'map'],
       {
         relativeTo: this.activeRouter,
         queryParams: id ? { open: id } : null,

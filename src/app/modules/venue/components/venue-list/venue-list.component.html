@@ -18,7 +18,7 @@
           <td>{{ venue.location?.city | titlecase }}</td>
           <td>{{ venue.location?.zipcode }}</td>
           <td>{{ venue.location?.adress }}</td>
-          <td>{{ getStartYear(venue.dates?.startMoment) }}</td>
+          <td>{{ venue.dates?.startdate | getYear }}</td>
         </tr>
       </tbody>
     </table>

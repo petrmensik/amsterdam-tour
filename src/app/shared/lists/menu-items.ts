@@ -9,7 +9,7 @@ export const MENU_ITEM_LIST: IMenuItem[] = [
   {
     key: 'venue',
     icon: ['far', 'list-alt'],
-    route: ['/', 'venue'],
+    route: ['/', 'venues', 'list'],
   },
   {
     key: 'event',
@@ -19,7 +19,7 @@ export const MENU_ITEM_LIST: IMenuItem[] = [
   {
     key: 'map',
     icon: ['far', 'map'],
-    route: ['/', 'map'],
+    route: ['/', 'venues', 'map'],
   },
   {
     key: 'git',
